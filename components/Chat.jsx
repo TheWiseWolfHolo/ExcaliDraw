@@ -29,7 +29,8 @@ const CHART_TYPES = {
   pyramid: '金字塔图',
   funnel: '漏斗图',
   venn: '韦恩图',
-  matrix: '矩阵图'
+  matrix: '矩阵图',
+  infographic: '信息图'
 };
 
 export default function Chat({ onSendMessage, isGenerating }) {
