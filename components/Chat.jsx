@@ -1,15 +1,15 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ImageUpload from './ImageUpload';
 import LoadingOverlay from './LoadingOverlay';
 import { generateImagePrompt } from '@/lib/image-utils';
 import { CHART_TYPES } from '@/lib/constants';
 
-export default function Chat({ onSendMessage, isGenerating }) {
+export default function Chat({ onSendMessage, isGenerating, initialInput = '', initialChartType = 'auto' }) {
   const [activeTab, setActiveTab] = useState('text'); // 'text', 'file', or 'image'
-  const [input, setInput] = useState('');
-  const [chartType, setChartType] = useState('auto'); // Selected chart type
+  const [input, setInput] = useState(initialInput);
+  const [chartType, setChartType] = useState(initialChartType); // Selected chart type
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileStatus, setFileStatus] = useState(''); // '', 'parsing', 'success', 'error'
   const [fileError, setFileError] = useState('');
@@ -19,7 +19,15 @@ export default function Chat({ onSendMessage, isGenerating }) {
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
 
-  
+  // Sync with parent state changes
+  useEffect(() => {
+    setInput(initialInput);
+  }, [initialInput]);
+
+  useEffect(() => {
+    setChartType(initialChartType);
+  }, [initialChartType]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim() && !isGenerating) {

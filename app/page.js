@@ -6,9 +6,11 @@ import Chat from '@/components/Chat';
 import CodeEditor from '@/components/CodeEditor';
 import ConfigManager from '@/components/ConfigManager';
 import ContactModal from '@/components/ContactModal';
+import HistoryModal from '@/components/HistoryModal';
 import Notification from '@/components/Notification';
 import { getConfig, isConfigValid } from '@/lib/config';
 import { optimizeExcalidrawCode } from '@/lib/optimizeArrows';
+import { historyManager } from '@/lib/history-manager';
 
 // Dynamically import ExcalidrawCanvas to avoid SSR issues
 const ExcalidrawCanvas = dynamic(() => import('@/components/ExcalidrawCanvas'), {
@@ -19,6 +21,7 @@ export default function Home() {
   const [config, setConfig] = useState(null);
   const [isConfigManagerOpen, setIsConfigManagerOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
   const [generatedCode, setGeneratedCode] = useState('');
   const [elements, setElements] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -28,6 +31,8 @@ export default function Home() {
   const [isResizingHorizontal, setIsResizingHorizontal] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [jsonError, setJsonError] = useState(null);
+  const [currentInput, setCurrentInput] = useState('');
+  const [currentChartType, setCurrentChartType] = useState('auto');
   const [notification, setNotification] = useState({
     isOpen: false,
     title: '',
@@ -146,6 +151,8 @@ export default function Home() {
       return;
     }
 
+    setCurrentInput(userMessage);
+    setCurrentChartType(chartType);
     setIsGenerating(true);
     setApiError(null); // Clear previous errors
     setJsonError(null); // Clear previous JSON errors
@@ -242,6 +249,19 @@ export default function Home() {
       const optimizedCode = optimizeExcalidrawCode(processedCode);
       setGeneratedCode(optimizedCode);
       tryParseAndApply(optimizedCode);
+
+      // Save to history (only for text input)
+      if (userMessage && optimizedCode) {
+        historyManager.addHistory({
+          chartType,
+          userInput: userMessage,
+          generatedCode: optimizedCode,
+          config: {
+            name: config.name || config.type,
+            model: config.model
+          }
+        });
+      }
     } catch (error) {
       console.error('Error generating code:', error);
       // Check if it's a network error
@@ -330,6 +350,14 @@ export default function Home() {
     }
   };
 
+  // Handle applying history
+  const handleApplyHistory = (history) => {
+    setCurrentInput(history.userInput);
+    setCurrentChartType(history.chartType);
+    setGeneratedCode(history.generatedCode);
+    tryParseAndApply(history.generatedCode);
+  };
+
   // Handle horizontal resizing (left panel vs right panel)
   const handleHorizontalMouseDown = (e) => {
     setIsResizingHorizontal(true);
@@ -380,6 +408,12 @@ export default function Home() {
           )}
           <div className="flex items-center space-x-2">
             <button
+              onClick={() => setIsHistoryModalOpen(true)}
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 transition-colors duration-200"
+            >
+              历史记录
+            </button>
+            <button
               onClick={() => setIsConfigManagerOpen(true)}
               className="px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-gray-900 rounded hover:bg-gray-800 transition-colors duration-200"
             >
@@ -421,6 +455,8 @@ export default function Home() {
             <Chat
               onSendMessage={handleSendMessage}
               isGenerating={isGenerating}
+              initialInput={currentInput}
+              initialChartType={currentChartType}
             />
           </div>
 
@@ -493,6 +529,13 @@ export default function Home() {
           </button>
         </div>
       </footer>
+
+      {/* History Modal */}
+      <HistoryModal
+        isOpen={isHistoryModalOpen}
+        onClose={() => setIsHistoryModalOpen(false)}
+        onApply={handleApplyHistory}
+      />
 
       {/* Contact Modal */}
       <ContactModal
