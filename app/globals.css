@@ -40,3 +40,88 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ----------------------------- */
+/* Excalidraw theming overrides  */
+/* ----------------------------- */
+
+.excalidraw {
+  --excalidraw-primary-bg: var(--primary-gradient-mid);
+  --excalidraw-primary-border: var(--primary-main);
+  --excalidraw-primary-text: #fff;
+}
+
+.excalidraw button[aria-pressed="true"],
+.excalidraw button[aria-expanded="true"],
+.excalidraw .layer-ui__wrapper button.ToolIcon_type_button:focus-visible,
+.excalidraw .layer-ui__wrapper button.ToolIcon_type_button:hover,
+.excalidraw .layer-ui__wrapper button.ToolIcon_type_button.ToolIcon_type_button--active {
+  background: linear-gradient(
+    120deg,
+    var(--primary-gradient-start),
+    var(--primary-gradient-mid),
+    var(--primary-gradient-end)
+  );
+  border-color: var(--primary-border, transparent);
+  color: var(--excalidraw-primary-text);
+  box-shadow: 0 8px 24px var(--primary-shadow);
+}
+
+.excalidraw button.ToolIcon_type_button:focus-visible svg,
+.excalidraw button[aria-pressed="true"] svg,
+.excalidraw button[aria-expanded="true"] svg {
+  color: #fff;
+}
+
+.excalidraw .library-actions button,
+.excalidraw .layer-ui__wrapper__sidebar .Sidebar__footer button,
+.excalidraw .layer-ui__wrapper__sidebar .Sidebar__header button,
+.excalidraw .layer-ui__wrapper__sidebar button[data-testid="library-menu-button"],
+.excalidraw .layer-ui__wrapper__sidebar button.LibraryMenu__list-item {
+  background: linear-gradient(
+    100deg,
+    var(--primary-gradient-mid),
+    var(--primary-gradient-end)
+  );
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 30px var(--primary-shadow);
+}
+
+.excalidraw .library-actions button:hover,
+.excalidraw .layer-ui__wrapper__sidebar button:hover {
+  background: var(--primary-strong);
+}
+
+.excalidraw .layer-ui__wrapper__sidebar button:disabled {
+  background: var(--primary-muted);
+  color: #b9825a;
+  box-shadow: none;
+}
+
+.excalidraw [data-testid="library-menu"] .library-menu-title,
+.excalidraw [data-testid="library-menu"] .library-menu-help,
+.excalidraw .layer-ui__wrapper__sidebar .library-actions span {
+  color: var(--primary-deep);
+}
+
+/* Font choice specific overrides for inline editors */
+.excalidraw[data-font-choice="sans"] .excalidraw-textEditor textarea,
+.excalidraw[data-font-choice="sans"] .excalidraw-textEditor input {
+  font-family: var(--font-tiempos), var(--font-pingfang), sans-serif;
+}
+
+.excalidraw[data-font-choice="pingfang"] .excalidraw-textEditor textarea,
+.excalidraw[data-font-choice="pingfang"] .excalidraw-textEditor input {
+  font-family: var(--font-pingfang), "PingFang SC", var(--font-tiempos), sans-serif;
+}
+
+.excalidraw[data-font-choice="virgil"] .excalidraw-textEditor textarea,
+.excalidraw[data-font-choice="virgil"] .excalidraw-textEditor input {
+  font-family: 'Virgil', 'Comic Sans MS', cursive;
+}
+
+.excalidraw[data-font-choice="mono"] .excalidraw-textEditor textarea,
+.excalidraw[data-font-choice="mono"] .excalidraw-textEditor input {
+  font-family: 'Cascadia Code', 'SFMono-Regular', Menlo, monospace;
+}
