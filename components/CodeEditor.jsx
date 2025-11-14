@@ -23,7 +23,10 @@ export default function CodeEditor({ code, onChange, onApply, onOptimize, onClea
             disabled={isGenerating || isApplyingCode || isOptimizingCode || !code.trim()}
             className="px-4 py-2 text-sm font-medium text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center gap-2"
             style={{
-              background: isGenerating || isApplyingCode || isOptimizingCode ? '#d1d5db' : 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)'
+              background:
+                isGenerating || isApplyingCode || isOptimizingCode
+                  ? '#d1d5db'
+                  : 'linear-gradient(135deg, #fb923c 0%, #f97316 40%, #ea580c 100%)',
             }}
             title="优化图标布局和箭头连接"
           >

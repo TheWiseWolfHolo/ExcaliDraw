@@ -1,176 +1,87 @@
-# Smart Excalidraw
+## Smart Excalidraw
 
-> **Draw Professional Charts with Natural Language**
+**A Next.js application for generating Excalidraw diagrams from natural language.**
 
-## 🌐 Online Website
-Visit our online website to use directly: https://smart-excalidraw.aizhi.site/
+This repository contains a self-hostable implementation of Smart Excalidraw, integrating Excalidraw canvas, a code editor, and LLM configuration management. It is suitable for personal use and further customization.
 
-## 📸 Preview
-Operation Interface
-<img width="2330" height="1255" alt="Smart Excalidraw Preview" src="https://github.com/user-attachments/assets/5319ad5c-c507-42e0-b67a-e9dfb2d7ecfa" />
-Technical Architecture Diagram
-<img width="1920" height="1134" alt="Untitled-2025-11-03-1105" src="https://github.com/user-attachments/assets/d2e01c4e-d300-4c20-bd98-d056e4f02102" />
-Infographic
-<img width="2183" height="828" alt="Untitled-2025-11-03-1054" src="https://github.com/user-attachments/assets/0e46e8da-fe64-40a9-911b-f6c0e5589bae" />
+## Features
 
-## ✨ Core Features
+- **Natural language to diagrams**: Describe what you want (flows, architectures, mind maps, ER diagrams, etc.) and the app uses an LLM to generate Excalidraw elements.
+- **Native Excalidraw canvas**: Full Excalidraw experience – drag, edit, restyle, and export.
+- **Code editor integration**: View and edit the generated element JSON in a Monaco editor, then apply it back to the canvas with one click.
+- **Layout optimization**: An “Optimize” action improves layout and arrow connections using a custom algorithm.
+- **Flexible LLM configuration**:
+  - Client-side LLM configs stored in browser (OpenAI / Anthropic style APIs).
+  - Optional server-side LLM + access password pattern (requires your own backend implementation).
+- **Custom design & typography**: Orange primary theme and a Tiempos + PingFang font setup for a clean UI experience.
 
-### 🎯 AI-Powered, Outstanding Results
-Powered by advanced large language models to understand your requirements and generate professional-grade charts with clear structure and logical layout.
+## Project Structure (Core)
 
-### 🔗 Innovative Connection Algorithm
-Featuring a proprietary intelligent arrow optimization algorithm that automatically calculates optimal connection points, ensuring charts are well-organized and logically clear, eliminating messy line crossings.
+- `app/`
+  - `page.js`: Main UI (chat + code editor + canvas layout)
+  - `layout.js`: Global layout, fonts, and Vercel Analytics
+- `components/`
+  - `Chat.jsx`: Chat / prompt input area
+  - `CodeEditor.jsx`: Monaco editor with “Optimize” and “Apply” actions
+  - `ExcalidrawCanvas.jsx`: Excalidraw wrapper with `convertToExcalidrawElements`
+  - `ConfigModal.jsx` / `ConfigManager.jsx`: LLM configuration dialogs
+  - `ui/`: Basic UI components (`Button`, `Input`, `Modal`, etc.)
+- `lib/`
+  - `llm-client.js`: Client-side LLM request helper
+  - `prompts.js`: Prompt templates
+  - `optimizeArrows.js`: Arrow optimization utilities
+  - `config-manager.js`: LocalStorage-based config manager
+  - `design-system.js`: Design tokens (colors, radius, spacing)
+  - `history-manager.js`: Generation history
+- `docs/`: Internal documentation (Excalidraw skeleton API, arrow rules, requirements)
 
-### 📊 Rich Chart Types
-Supports 20+ chart types, including flowcharts, architecture diagrams, sequence diagrams, ER diagrams, mind maps, and more. AI can also automatically select the most suitable chart type based on your description.
+## Local Development
 
-### 🎨 Perfect Excalidraw Integration
-Generated charts are fully based on Excalidraw format, allowing free editing, style adjustments, and detail additions on the canvas—achieving the perfect combination of AI generation and manual refinement.
+### Requirements
 
-### ⚡ Ready to Use
-Simply configure an AI API key to get started, no complex environment setup required. All configurations are stored locally in your browser for privacy and security.
+- Node.js 18+
+- pnpm (recommended) or npm / yarn
 
-### 🌍 Multi-Language Support
-Now supports both Chinese and English interfaces, making it accessible to a global audience.
-
-## 🚀 Quick Start
-
-### Option 1: Use Access Password
-
-If the server administrator has configured an access password, you can directly use the server-side LLM configuration without providing your own API Key:
-
-1. Click the **"Access Password"** button in the top right corner
-2. Enter the access password provided by the administrator
-3. Click **"Validate Password"** to test the connection
-4. Check **"Enable Access Password"** and save
-
-Once enabled, the application will prioritize the server-side configuration, and you can start creating without configuring your own API Key!
-
-### Option 2: Configure Your Own AI
-
-1. Click the **"Configure LLM"** button in the top right corner
-2. Select provider type (OpenAI or Anthropic)
-3. Enter your API Key
-4. Select model (**Highly recommend claude-sonnet-4.5** for best results)
-5. Save configuration
-
-That's it! You're ready to start creating.
-
-### Step 2: Create Charts
-
-Describe your needs in natural language in the input box, for example:
-- "Draw a user login flowchart"
-- "Create a microservices architecture diagram including gateway, authentication service, and business services"
-- "Design a database ER diagram for an e-commerce system"
-
-AI will automatically generate the chart, which you can directly edit and adjust on the canvas.
-
-## 💻 Local Deployment
-
-If you want to run the project locally:
+### Setup
 
 ```bash
-# Clone the project
-git clone https://github.com/liujuntao123/smart-excalidraw-next.git
-cd smart-excalidraw-next
+git clone <your-repo-url>
+cd ExcaliDraw
 
 # Install dependencies
 pnpm install
 
-# Start development server
+# Start dev server
 pnpm dev
 ```
 
-Visit http://localhost:3000 to start using.
+Then open `http://localhost:3000` in your browser.
 
-### Configure Server-Side LLM (Optional)
+## LLM Configuration (Frontend)
 
-If you want to provide a unified LLM configuration for users and avoid requiring them to obtain their own API Keys, you can configure the server-side access password feature:
+The frontend already provides a configuration UI for LLMs:
 
-1. Copy the environment variables example file:
-```bash
-cp .env.example .env
-```
+- Click **“配置 LLM / Configure LLM”** in the top-right corner to open the modal.
+- Configure:
+  - Provider type: `openai`-style / `anthropic`-style
+  - Base URL, API key
+  - Model (either typed manually or loaded via the “load models” endpoint)
+- Use the **Config Manager** to create, edit, clone, and switch between multiple configurations.
 
-2. Configure the following variables in `.env`:
-```bash
-# Access password (users need to enter this password to use server-side LLM)
-ACCESS_PASSWORD=your-secure-password
+> Note: This repository does not ship with any production API keys or access password logic – you are expected to adapt `/app/api/...` routes and `.env` according to your own backend and provider setup.
 
-# LLM provider type (openai or anthropic)
-SERVER_LLM_TYPE=anthropic
+## Tech Stack
 
-# API base URL
-SERVER_LLM_BASE_URL=https://api.anthropic.com/v1
+- **Framework**: Next.js 16 (App Router)
+- **Frontend**: React 19, Tailwind CSS 4
+- **Canvas**: `@excalidraw/excalidraw`
+- **Editor**: `@monaco-editor/react`
+- **Analytics**: `@vercel/analytics`
 
-# API key
-SERVER_LLM_API_KEY=sk-ant-your-key-here
+## License
 
-# Model name
-SERVER_LLM_MODEL=claude-sonnet-4-5-20250929
-```
-
-3. Restart the development server, and users can use the server-configured LLM through the access password.
-
-**Benefits:**
-- Users don't need to apply for and configure their own API Keys
-- Centralized management of API usage and costs
-- Suitable for team or organizational internal use
-- Provide free trial experience to users
-
-## 🔧 Configuration
-
-### Supported LLM Providers
-- **OpenAI**: GPT-4, GPT-3.5 and other compatible models
-- **Anthropic**: Claude-3.5-Sonnet, Claude-3-Opus and other compatible models
-
-### API Configuration
-1. Get API keys from your chosen provider
-2. Configure base URL (use default or custom endpoint)
-3. Select appropriate model
-4. All configurations are stored locally and securely
-
-## ❓ Frequently Asked Questions
-
-**Q: Which AI model is recommended?**
-A: **claude-sonnet-4.5** is highly recommended for best performance in understanding requirements and generating charts.
-
-**Q: Is data secure?**
-A: All configuration information is stored only in your local browser and never uploaded to any servers.
-
-**Q: What chart types are supported?**
-A: Supports 20+ types including flowcharts, architecture diagrams, sequence diagrams, ER diagrams, mind maps, network topology diagrams, etc. AI will automatically select the most suitable type.
-
-**Q: Can generated charts be modified?**
-A: Absolutely! After generation, you can freely edit on the Excalidraw canvas, including adjusting positions, modifying styles, adding elements, and more.
-
-**Q: What is the access password feature?**
-A: The access password feature allows server administrators to configure a unified LLM. Users only need to enter the password to use it, without needing to apply for their own API Key. When access password is enabled, the server-side configuration takes priority over local configuration.
-
-**Q: What is the priority between access password and local configuration?**
-A: If access password is enabled, the system will prioritize the server-side LLM configuration. Local configured API Keys will only be used when access password is not enabled.
-
-**Q: Does it support multiple languages?**
-A: Yes! The interface now supports both Chinese and English, with automatic language detection based on browser settings.
-
-## 🛠️ Tech Stack
-
-Next.js 16 · React 19 · Excalidraw · Tailwind CSS 4 · Monaco Editor · next-intl
-
-## 🌐 Internationalization
-
-This project supports multiple languages:
-- 🇨🇳 Chinese (Simplified) - Default
-- 🇺🇸 English
-
-Language is automatically detected based on your browser settings, or you can access different language versions:
-- Chinese: `http://localhost:3000/zh`
-- English: `http://localhost:3000/en`
-
-## 📄 License
-
-MIT License
+This project is released under the MIT License. See `LICENSE` in the repository if present.
 
 ---
 
-**Draw Professional Charts with Natural Language** - Making visual creation simple again
+**Draw professional diagrams with natural language – built on top of Excalidraw.**

@@ -34,7 +34,13 @@ export default function ExcalidrawCanvas({ elements }) {
     }
 
     try {
-      return convertToExcalidrawElements(elements);
+      const raw = convertToExcalidrawElements(elements);
+      // 统一将带有 fontFamily 的元素强制切换到“无衬线”字体（2），避免手写风格
+      return raw.map((el) =>
+        typeof el.fontFamily === 'number'
+          ? { ...el, fontFamily: 2 }
+          : el
+      );
     } catch (error) {
       console.error('Failed to convert elements:', error);
       return [];
