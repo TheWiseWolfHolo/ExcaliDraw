@@ -71,7 +71,9 @@ export default function ExcalidrawCanvas({ elements }) {
           elements: convertedElements,
           appState: {
             viewBackgroundColor: '#ffffff',
-            currentItemFontFamily: 1,
+            // 1: 手写 Virgil，2: 无衬线，3: 等宽
+            // 默认用无衬线，更贴近全局 Tiempos+苹方 的感觉
+            currentItemFontFamily: 2,
           },
           scrollToContent: true,
         }}

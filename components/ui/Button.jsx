@@ -10,11 +10,14 @@ export default function Button({
   type = 'button',
   className = '',
 }) {
-  const baseClasses = 'rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses =
+    'rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300',
-    secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300',
+    primary:
+      'bg-orange-500 text-white hover:bg-orange-600 active:bg-orange-700 disabled:bg-orange-300',
+    secondary:
+      'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300',
     danger: 'bg-red-600 text-white hover:bg-red-700',
   };
 
