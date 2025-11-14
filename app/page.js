@@ -440,9 +440,20 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-3">
           {(usePassword || (config && isConfigValid(config))) && (
-            <div className="flex items-center space-x-2 px-3 py-1.5 bg-green-50 rounded border border-green-300">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-green-900 font-medium">
+            <div className="flex items-center space-x-2 px-3 py-1.5 rounded border"
+              style={{
+                background: 'var(--tone-success-bg)',
+                borderColor: 'var(--tone-success-border)',
+              }}
+            >
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{ background: 'var(--tone-success-strong)' }}
+              ></div>
+              <span
+                className="text-xs font-medium"
+                style={{ color: 'var(--tone-success-text)' }}
+              >
                 {usePassword ? '密码访问' : `${config.name || config.type} - ${config.model}`}
               </span>
             </div>
@@ -476,19 +487,28 @@ export default function Home() {
         <div id="left-panel" style={{ width: `${leftPanelWidth}%` }} className="flex flex-col border-r border-gray-200 bg-white">
           {/* API Error Banner */}
           {apiError && (
-            <div className="bg-red-50 border-b border-red-200 px-4 py-3 flex items-start justify-between">
+            <div
+              className="px-4 py-3 flex items-start justify-between"
+              style={{
+                background: 'var(--tone-danger-bg)',
+                borderBottom: `1px solid var(--tone-danger-border)`,
+              }}
+            >
               <div className="flex items-start space-x-2 min-w-0 flex-1">
-                <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                  style={{ color: 'var(--tone-danger-text)' }}
+                >
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-red-800">请求失败</p>
-                  <p className="text-xs text-red-700 mt-1 break-words">{apiError}</p>
+                  <p className="text-xs font-medium" style={{ color: 'var(--tone-danger-text)' }}>请求失败</p>
+                  <p className="text-xs mt-1 break-words" style={{ color: 'var(--tone-danger-text)' }}>{apiError}</p>
                 </div>
               </div>
               <button
                 onClick={() => setApiError(null)}
-                className="text-red-600 hover:text-red-800 transition-colors"
+                className="transition-colors"
+                style={{ color: 'var(--tone-danger-text)' }}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />

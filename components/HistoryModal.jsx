@@ -84,10 +84,10 @@ export default function HistoryModal({ isOpen, onClose, onApply }) {
 
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {histories.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-4 flex justify-end">
               <button
                 onClick={handleClearAll}
-                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-200"
+                className="tone-button tone-button--danger px-5"
               >
                 清空全部
               </button>
@@ -108,7 +108,7 @@ export default function HistoryModal({ isOpen, onClose, onApply }) {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">
+                        <span className="tone-chip px-2 py-0.5 text-[11px]">
                           {CHART_TYPES[history.chartType] || history.chartType}
                         </span>
                         <span className="text-xs text-gray-500">
@@ -127,13 +127,17 @@ export default function HistoryModal({ isOpen, onClose, onApply }) {
                     <div className="flex items-center gap-2 ml-4">
                       <button
                         onClick={() => handleApply(history)}
-                        className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+                        className="tone-button tone-button--primary px-4 py-1 text-xs"
                       >
                         应用
                       </button>
                       <button
                         onClick={() => handleDelete(history.id)}
-                        className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-200"
+                        className="tone-button tone-button--ghost px-4 py-1 text-xs text-[var(--tone-danger-text)]"
+                        style={{
+                          borderColor: 'var(--tone-danger-border)',
+                          color: 'var(--tone-danger-text)',
+                        }}
                       >
                         删除
                       </button>

@@ -97,21 +97,17 @@ export default function AccessPasswordModal({ isOpen, onClose }) {
         {/* Body */}
         <div className="px-6 py-4 space-y-4">
           {message && (
-            <div className={`px-4 py-3 border rounded ${
-              messageType === 'success'
-                ? 'bg-green-50 border-green-200'
-                : 'bg-red-50 border-red-200'
-            }`}>
-              <p className={`text-sm ${
-                messageType === 'success' ? 'text-green-800' : 'text-red-800'
-              }`}>{message}</p>
+            <div
+              className={`tone-card ${messageType === 'success' ? 'tone-card--success' : 'tone-card--danger'}`}
+            >
+              <p className="text-sm">{message}</p>
             </div>
           )}
 
-          <div className="px-4 py-3 bg-blue-50 border border-blue-200 rounded">
-            <p className="text-sm text-blue-800 font-medium mb-1">提示：</p>
-            <p className="text-sm text-blue-800">• 访问密码优先级高于前端LLM配置</p>
-            <p className="text-sm text-blue-800">• 启用后将使用服务器端配置的LLM</p>
+          <div className="tone-card tone-card--info space-y-1">
+            <p className="text-sm font-medium">提示：</p>
+            <p className="text-sm">• 访问密码优先级高于前端 LLM 配置</p>
+            <p className="text-sm">• 启用后将使用服务器端配置的 LLM</p>
           </div>
 
           {/* Password Input */}

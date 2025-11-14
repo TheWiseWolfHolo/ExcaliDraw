@@ -251,13 +251,13 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
         {/* Body */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {error && (
-            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded">
-              <p className="text-sm text-red-800">{error}</p>
+            <div className="mb-4 tone-card tone-card--danger">
+              <p className="text-sm">{error}</p>
             </div>
           )}
 
-          <div className="mb-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded">
-            <p className="text-sm text-blue-800">提示：如果启用了访问密码，将优先使用服务器端配置，此处配置将被忽略</p>
+          <div className="mb-4 tone-card tone-card--info">
+            <p className="text-sm">提示：如果启用了访问密码，将优先使用服务器端配置，此处配置将被忽略</p>
           </div>
 
           {/* Actions Bar */}
@@ -305,7 +305,7 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
                   key={config.id}
                   className={`border rounded-lg p-4 ${
                     config.id === activeConfigId
-                      ? 'border-blue-500 bg-blue-50'
+                      ? 'border-[var(--tone-info-border)] bg-[var(--tone-info-bg)]'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -314,9 +314,9 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
                       <div className="flex items-center gap-2 mb-2">
                         <h3 className="font-medium text-gray-900">{config.name}</h3>
                         {config.id === activeConfigId && (
-                          <span className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">当前使用</span>
+                          <span className="tone-chip px-2 py-0.5 text-[11px]">当前使用</span>
                         )}
-                        <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">
+                        <span className="tone-chip px-2 py-0.5 text-[11px] bg-gray-100 text-gray-700">
                           {config.type}
                         </span>
                       </div>
@@ -333,7 +333,7 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
                       {config.id !== activeConfigId && (
                         <button
                           onClick={() => handleSetActive(config.id)}
-                          className="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+                          className="tone-button tone-button--primary px-3 py-1 text-xs"
                         >
                           设为当前
                         </button>
@@ -341,26 +341,30 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
                       <button
                         onClick={() => handleTestConnection(config)}
                         disabled={isLoading}
-                        className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-200 disabled:bg-gray-400"
+                        className="tone-button tone-button--ghost px-3 py-1 text-xs disabled:opacity-50"
+                        style={{
+                          borderColor: 'var(--tone-success-border)',
+                          color: 'var(--tone-success-text)',
+                        }}
                       >
                         测试
                       </button>
                       <button
                         onClick={() => handleEdit(config)}
-                        className="px-3 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors duration-200"
+                        className="tone-button tone-button--ghost px-3 py-1 text-xs"
                       >
                         编辑
                       </button>
                       <button
                         onClick={() => handleClone(config)}
-                        className="px-3 py-1 text-xs text-white rounded bg-[var(--primary-main)] hover:bg-[var(--primary-strong)] transition-colors duration-200 shadow-[0_4px_12px_var(--primary-shadow)]"
+                        className="tone-button tone-button--primary px-3 py-1 text-xs"
                       >
                         克隆
                       </button>
                       {configs.length > 1 && (
                         <button
                           onClick={() => handleDelete(config.id)}
-                          className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-200"
+                          className="tone-button tone-button--danger px-3 py-1 text-xs"
                         >
                           删除
                         </button>
@@ -482,8 +486,8 @@ function ConfigEditor({ config, isCreating, onSave, onCancel }) {
 
         <div className="px-6 py-4 space-y-4">
           {error && (
-            <div className="px-4 py-3 bg-red-50 border border-red-200 rounded">
-              <p className="text-sm text-red-800">{error}</p>
+            <div className="tone-card tone-card--danger">
+              <p className="text-sm">{error}</p>
             </div>
           )}
 

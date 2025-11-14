@@ -54,6 +54,25 @@ export default function ExcalidrawCanvas({ elements }) {
     });
   }, [excalidrawAPI]);
 
+  // Remove “Excalidraw links” panels once rendered
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const removeLinks = () => {
+      document
+        .querySelectorAll('.dropdown-menu-group')
+        .forEach(group => {
+          const title = group.querySelector('.dropdown-menu-group-title');
+          if (title && title.textContent?.toLowerCase().includes('excalidraw links')) {
+            group.remove();
+          }
+        });
+    };
+    removeLinks();
+    const observer = new MutationObserver(removeLinks);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   // Auto zoom to fit content when API is ready and elements change
   useEffect(() => {
     if (excalidrawAPI && convertedElements.length > 0) {

@@ -18,7 +18,8 @@ export default function Button({
       'text-white bg-[var(--primary-main)] shadow-[0_8px_24px_var(--primary-shadow)] hover:bg-[var(--primary-strong)] hover:shadow-[0_10px_30px_var(--primary-shadow)] active:bg-[var(--primary-deep)] disabled:bg-[var(--primary-muted)] disabled:text-white/70 disabled:shadow-none',
     secondary:
       'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300',
-    danger: 'bg-red-600 text-white hover:bg-red-700',
+    danger:
+      'text-white bg-[var(--tone-danger-strong)] hover:bg-[color-mix(in srgb,var(--tone-danger-strong),black 10%)]',
   };
 
   const sizes = {

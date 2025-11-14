@@ -115,13 +115,13 @@ export default function ConfigModal({ isOpen, onClose, onSave, initialConfig, sh
         {/* Body */}
         <div className="px-6 py-4 space-y-4">
           {error && (
-            <div className="px-4 py-3 bg-red-50 border border-red-200 rounded">
-              <p className="text-sm text-red-800">{error}</p>
+            <div className="tone-card tone-card--danger">
+              <p className="text-sm">{error}</p>
             </div>
           )}
 
-          <div className="px-4 py-3 bg-blue-50 border border-blue-200 rounded">
-            <p className="text-sm text-blue-800">提示：如果启用了访问密码，将优先使用服务器端配置</p>
+          <div className="tone-card tone-card--info">
+            <p className="text-sm">提示：如果启用了访问密码，将优先使用服务器端配置</p>
           </div>
 
           {/* Provider Name */}

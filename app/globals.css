@@ -20,6 +20,29 @@
   --primary-gradient-start: #fff2e3;
   --primary-gradient-mid: #f8c18e;
   --primary-gradient-end: #eb8140;
+
+  /* 温润辅助色系 */
+  --tone-chip-bg: #f7ede2;
+  --tone-chip-text: #9a6a3a;
+
+  --tone-info-bg: #f5f0ea;
+  --tone-info-border: #e4d7ca;
+  --tone-info-text: #7a5940;
+  --tone-info-strong: #d99c6b;
+
+  --tone-success-bg: #edf3f0;
+  --tone-success-border: #d3e4d7;
+  --tone-success-text: #396851;
+  --tone-success-strong: #4f8b6b;
+
+  --tone-danger-bg: #fbefed;
+  --tone-danger-border: #f3cfc7;
+  --tone-danger-text: #b4513f;
+  --tone-danger-strong: #ce6a55;
+
+  --tone-neutral-bg: #f3eee8;
+  --tone-neutral-border: #e0d4c8;
+  --tone-neutral-text: #5c4b3c;
 }
 
 @theme inline {
@@ -40,6 +63,78 @@ body {
 /* Hide scrollbar utility class */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.tone-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--tone-chip-bg);
+  color: var(--tone-chip-text);
+  font-weight: 600;
+}
+
+.tone-card {
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  padding: 0.75rem 1rem;
+  background: var(--tone-neutral-bg);
+  border-color: var(--tone-neutral-border);
+  color: var(--tone-neutral-text);
+}
+
+.tone-card--info {
+  background: var(--tone-info-bg);
+  border-color: var(--tone-info-border);
+  color: var(--tone-info-text);
+}
+
+.tone-card--success {
+  background: var(--tone-success-bg);
+  border-color: var(--tone-success-border);
+  color: var(--tone-success-text);
+}
+
+.tone-card--danger {
+  background: var(--tone-danger-bg);
+  border-color: var(--tone-danger-border);
+  color: var(--tone-danger-text);
+}
+
+.tone-button {
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  transition: background 150ms ease, box-shadow 150ms ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.tone-button--primary {
+  background: linear-gradient(
+    120deg,
+    var(--primary-gradient-start),
+    var(--primary-gradient-end)
+  );
+  color: white;
+}
+
+.tone-button--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.tone-button--danger {
+  background: var(--tone-danger-strong);
+  color: white;
+}
+
+.tone-button--ghost {
+  background: transparent;
+  border: 1px solid var(--tone-neutral-border);
+  color: var(--tone-neutral-text);
+  box-shadow: none;
 }
 
 /* ----------------------------- */

@@ -338,42 +338,46 @@ export default function Chat({ onSendMessage, isGenerating, initialInput = '', i
             {/* File Status */}
             {selectedFile && (
               <div className="mt-6 w-full max-w-md">
-                <div className={`p-4 rounded border ${
-                  fileStatus === 'success' ? 'bg-green-50 border-green-200' :
-                  fileStatus === 'error' ? 'bg-red-50 border-red-200' :
-                  'bg-blue-50 border-blue-200'
-                }`}>
+                <div
+                  className={`p-4 rounded border ${
+                    fileStatus === 'success'
+                      ? 'bg-[var(--tone-success-bg)] border-[var(--tone-success-border)]'
+                      : fileStatus === 'error'
+                      ? 'bg-[var(--tone-danger-bg)] border-[var(--tone-danger-border)]'
+                      : 'bg-[var(--tone-info-bg)] border-[var(--tone-info-border)]'
+                  }`}
+                >
                   <div className="flex items-center space-x-3">
                     {fileStatus === 'parsing' && (
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <div className="w-2 h-2 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '300ms' }}></div>
                       </div>
                     )}
                     {fileStatus === 'success' && (
-                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--tone-success-text)' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     )}
                     {fileStatus === 'error' && (
-                      <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--tone-danger-text)' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{selectedFile.name}</p>
                       {fileStatus === 'success' && !isGenerating && (
-                        <p className="text-xs text-green-600 mt-1">文件已上传，可以开始生成</p>
+                        <p className="text-xs mt-1" style={{ color: 'var(--tone-success-text)' }}>文件已上传，可以开始生成</p>
                       )}
                       {fileStatus === 'success' && isGenerating && (
-                        <p className="text-xs text-blue-600 mt-1">正在生成图表...</p>
+                        <p className="text-xs mt-1" style={{ color: 'var(--tone-info-text)' }}>正在生成图表...</p>
                       )}
                       {fileStatus === 'error' && (
-                        <p className="text-xs text-red-600 mt-1">{fileError}</p>
+                        <p className="text-xs mt-1" style={{ color: 'var(--tone-danger-text)' }}>{fileError}</p>
                       )}
                       {fileStatus === 'parsing' && (
-                        <p className="text-xs text-blue-600 mt-1">正在解析文件...</p>
+                        <p className="text-xs mt-1" style={{ color: 'var(--tone-info-text)' }}>正在解析文件...</p>
                       )}
                     </div>
                   </div>

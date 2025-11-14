@@ -151,7 +151,7 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
         <div
           className={`flex-1 flex flex-col items-center justify-center border-2 border-dashed rounded-lg transition-colors duration-200 ${
             isDragging
-              ? 'border-blue-500 bg-blue-50'
+              ? 'border-[var(--tone-info-border)] bg-[var(--tone-info-bg)]'
               : 'border-gray-300 hover:border-gray-400'
           }`}
           onDragEnter={handleDragEnter}
@@ -219,7 +219,9 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
           </button>
 
           {isDragging && (
-            <p className="mt-3 text-sm text-blue-600">松开鼠标上传图片</p>
+            <p className="mt-3 text-sm" style={{ color: 'var(--tone-info-text)' }}>
+              松开鼠标上传图片
+            </p>
           )}
         </div>
       ) : (
@@ -249,7 +251,10 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
             {/* 成功状态指示器 */}
             {uploadStatus === 'success' && (
               <div className="absolute top-3 left-3">
-                <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">
+                <div
+                  className="w-6 h-6 rounded-full flex items-center justify-center"
+                  style={{ background: 'var(--tone-success-strong)' }}
+                >
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
@@ -260,7 +265,9 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
             {/* 状态指示器 */}
             {uploadStatus === 'uploading' && (
               <div className="absolute inset-0 flex items-center justify-center bg-white/75">
-                <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                <div
+                  className="w-8 h-8 border-2 border-[var(--tone-info-strong)] border-t-transparent rounded-full animate-spin"
+                ></div>
               </div>
             )}
 
@@ -277,8 +284,8 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
 
           {/* 错误消息 */}
           {errorMessage && (
-            <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
-              <p className="text-xs text-red-600">{errorMessage}</p>
+            <div className="mt-2 tone-card tone-card--danger">
+              <p className="text-xs">{errorMessage}</p>
             </div>
           )}
 
@@ -297,11 +304,11 @@ export default function ImageUpload({ onImageSelect, isGenerating, chartType, on
 
           {/* 生成中状态 */}
           {isGenerating && uploadStatus === 'success' && (
-            <div className="mt-2 flex items-center justify-center text-sm text-blue-600">
+            <div className="mt-2 flex items-center justify-center text-sm" style={{ color: 'var(--tone-info-text)' }}>
               <div className="flex space-x-1 mr-2">
-                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <div className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '0ms' }}></div>
+                <div className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '150ms' }}></div>
+                <div className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: 'var(--tone-info-strong)', animationDelay: '300ms' }}></div>
               </div>
               <span>正在识别...</span>
             </div>
