@@ -145,6 +145,12 @@ body {
   --excalidraw-primary-text: #ffffff;
 }
 
+/* Shared typography for Excalidraw UI chrome */
+.excalidraw .layer-ui__wrapper,
+.excalidraw .layer-ui__wrapper * {
+  font-family: var(--font-app-sans);
+}
+
 .excalidraw button.ToolIcon_type_button {
   border-radius: 12px;
   border-color: transparent;
@@ -177,36 +183,61 @@ body {
   color: #ffffff;
 }
 
+.excalidraw .layer-ui__wrapper__library,
+.excalidraw .layer-ui__wrapper__library .Stack,
+.excalidraw .library-menu-title,
+.excalidraw .library-menu-help,
+.excalidraw .library-actions,
+.excalidraw .LibraryMenu__list-item {
+  font-family: var(--font-app-sans);
+  color: var(--primary-deep);
+}
+
+.excalidraw .layer-ui__wrapper__library .ToolIcon_type_button,
+.excalidraw .layer-ui__wrapper__library button,
 .excalidraw .library-actions button,
-.excalidraw .layer-ui__wrapper__sidebar .Sidebar__footer button,
-.excalidraw .layer-ui__wrapper__sidebar button[data-testid="library-menu-button"],
-.excalidraw .layer-ui__wrapper__sidebar button.LibraryMenu__list-item {
+.excalidraw .LibraryMenu__list-item button,
+.excalidraw .layer-ui__wrapper__sidebar button[data-testid="library-menu-button"] {
+  border-radius: 10px;
   background: linear-gradient(
-    120deg,
-    var(--primary-gradient-start),
-    var(--primary-gradient-end)
+    135deg,
+    rgba(255, 242, 227, 0.95),
+    rgba(243, 162, 94, 0.92)
   );
-  color: white;
+  color: #ffffff;
   border: none;
-  box-shadow: 0 12px 28px var(--primary-shadow);
+  box-shadow: 0 16px 30px rgba(234, 131, 66, 0.28);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
+.excalidraw .layer-ui__wrapper__library button:hover,
 .excalidraw .library-actions button:hover,
-.excalidraw .layer-ui__wrapper__sidebar button:hover {
-  background: var(--primary-strong);
+.excalidraw .LibraryMenu__list-item button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 193, 142, 0.95),
+    rgba(235, 129, 64, 0.95)
+  );
 }
 
+.excalidraw .layer-ui__wrapper__library button:disabled,
 .excalidraw .library-actions button:disabled,
-.excalidraw .layer-ui__wrapper__sidebar button:disabled {
+.excalidraw .LibraryMenu__list-item button:disabled {
   background: var(--primary-muted);
-  color: #b9825a;
+  color: rgba(181, 130, 90, 0.9);
   box-shadow: none;
 }
 
-.excalidraw .layer-ui__wrapper__library-header .Stack span,
-.excalidraw .library-menu-title,
+.excalidraw .library-menu-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .excalidraw .library-menu-help {
-  color: var(--primary-deep);
+  font-size: 0.75rem;
+  color: rgba(118, 88, 60, 0.9);
 }
 
 /* Font choice specific overrides for inline editors */
