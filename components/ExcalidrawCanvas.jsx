@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import '@excalidraw/excalidraw/index.css';
 
 // Dynamically import Excalidraw with no SSR
@@ -18,38 +19,39 @@ const getConvertFunction = async () => {
 
 const FONT_OPTIONS = [
   {
-    value: 'sans',
-    label: 'Tiempos · PingFang（标准）',
+    value: 'tiempos',
+    label: 'Tiempos · PingFang',
     familyValue: 2,
-    description: '适合常规流程图与信息图',
+    description: '英文优先 Tiempos，中文回退苹方',
   },
   {
     value: 'pingfang',
-    label: '苹方（中文优先）',
+    label: '仅苹方',
     familyValue: 2,
-    description: '中文文本更圆润清晰',
+    description: '全部文本都使用苹方风格',
   },
   {
     value: 'virgil',
-    label: '手写（Virgil）',
+    label: '手写 (Virgil)',
     familyValue: 1,
     description: '保留 Excalidraw 手绘风格',
   },
   {
     value: 'mono',
-    label: '等宽（Mono）',
+    label: '等宽 (Mono)',
     familyValue: 3,
-    description: '适合技术图或代码片段',
+    description: '适合代码或技术草图',
   },
 ];
 
 export default function ExcalidrawCanvas({
   elements,
-  fontChoice = 'sans',
+  fontChoice = 'tiempos',
   onFontChoiceChange,
 }) {
   const [convertToExcalidrawElements, setConvertFunction] = useState(null);
   const [excalidrawAPI, setExcalidrawAPI] = useState(null);
+  const [topLeftPanelMount, setTopLeftPanelMount] = useState(null);
 
   // Load convert function on mount
   useEffect(() => {
@@ -112,39 +114,86 @@ export default function ExcalidrawCanvas({
     return JSON.stringify(convertedElements.map(el => el.id)).slice(0, 50);
   }, [convertedElements]);
 
+  // Mount custom font control into the native top-left stack
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const ensureMount = () => {
+      const stackContainer = document.querySelector(
+        '.excalidraw .layer-ui__wrapper .Stack.Stack_vertical.App-menu_top__left'
+      );
+      if (!stackContainer) {
+        setTopLeftPanelMount(null);
+        return;
+      }
+      let mount = stackContainer.querySelector('.custom-font-choice');
+      if (!mount) {
+        mount = document.createElement('div');
+        mount.className = 'custom-font-choice w-full';
+        stackContainer.appendChild(mount);
+      }
+      setTopLeftPanelMount(mount);
+    };
+
+    ensureMount();
+    const observer = new MutationObserver(ensureMount);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  // Remove "Excalidraw Links" sidebar section
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const removeLinks = () => {
+      document
+        .querySelectorAll('.layer-ui__wrapper__sidebar section')
+        .forEach((section) => {
+          if (
+            section.textContent &&
+            section.textContent.toLowerCase().includes('excalidraw links')
+          ) {
+            section.style.display = 'none';
+          }
+        });
+    };
+    removeLinks();
+    const observer = new MutationObserver(removeLinks);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   const handleFontChange = (event) => {
     onFontChoiceChange?.(event.target.value);
   };
 
   return (
-    <div
-      className="relative w-full h-full"
-      data-font-choice={fontChoice}
-    >
-      <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-gray-200 px-4 py-3 space-y-2 min-w-[240px]">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-gray-600">字体</span>
-          <span className="text-[10px] text-gray-400 uppercase tracking-wide">
-            Font family
-          </span>
-        </div>
-        <div className="space-y-1">
-          <select
-            value={fontChoice}
-            onChange={handleFontChange}
-            className="w-full text-sm px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-focus)] bg-white"
-          >
-            {FONT_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <p className="text-[11px] text-gray-500 leading-snug">
-            {selectedFontOption.description}
-          </p>
-        </div>
-      </div>
+    <div className="relative w-full h-full" data-font-choice={fontChoice}>
+      {topLeftPanelMount &&
+        createPortal(
+          <div className="w-full border border-dashed border-[var(--primary-main)] rounded-lg px-3 py-2 mt-2 text-[11px] text-gray-600 bg-white/80 backdrop-blur">
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-semibold text-xs text-gray-700">字体偏好</span>
+              <span className="text-[10px] uppercase tracking-wide text-gray-400">
+                Custom font
+              </span>
+            </div>
+            <select
+              value={fontChoice}
+              onChange={handleFontChange}
+              className="w-full text-xs px-2 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-[var(--primary-focus)] border border-gray-200 bg-white"
+            >
+              {FONT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1 text-[10px] text-gray-500 leading-tight">
+              {selectedFontOption.description}
+            </p>
+          </div>,
+          topLeftPanelMount
+        )}
       <Excalidraw
         key={canvasKey}
         excalidrawAPI={(api) => setExcalidrawAPI(api)}

@@ -36,7 +36,7 @@ export default function Home() {
   const [jsonError, setJsonError] = useState(null);
   const [currentInput, setCurrentInput] = useState('');
   const [currentChartType, setCurrentChartType] = useState('auto');
-  const [canvasFontChoice, setCanvasFontChoice] = useState('sans');
+  const [canvasFontChoice, setCanvasFontChoice] = useState('tiempos');
   const [usePassword, setUsePassword] = useState(false);
   const [notification, setNotification] = useState({
     isOpen: false,

@@ -8,14 +8,14 @@ export default function CodeEditor({ code, onChange, onApply, onOptimize, onClea
   const optimizeButtonStyle = optimizeDisabled
     ? {
         background: 'var(--primary-muted)',
-        color: '#9a6131',
+        color: '#8f5525',
         boxShadow: 'none',
       }
     : {
         background:
-          'linear-gradient(120deg, var(--primary-gradient-start) 0%, var(--primary-gradient-mid) 45%, var(--primary-gradient-end) 100%)',
+          'linear-gradient(135deg, #f9b47b 0%, #f28f3b 45%, #d3681f 100%)',
         color: '#fff',
-        boxShadow: '0 12px 28px var(--primary-shadow)',
+        boxShadow: '0 14px 28px var(--primary-shadow)',
       };
 
   return (
