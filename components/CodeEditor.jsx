@@ -3,6 +3,21 @@
 import { Editor } from '@monaco-editor/react';
 
 export default function CodeEditor({ code, onChange, onApply, onOptimize, onClear, jsonError, onClearJsonError, isGenerating, isApplyingCode, isOptimizingCode }) {
+  const hasCode = Boolean(code?.trim());
+  const optimizeDisabled = isGenerating || isApplyingCode || isOptimizingCode || !hasCode;
+  const optimizeButtonStyle = optimizeDisabled
+    ? {
+        background: 'var(--primary-muted)',
+        color: '#9a6131',
+        boxShadow: 'none',
+      }
+    : {
+        background:
+          'linear-gradient(120deg, var(--primary-gradient-start) 0%, var(--primary-gradient-mid) 45%, var(--primary-gradient-end) 100%)',
+        color: '#fff',
+        boxShadow: '0 12px 28px var(--primary-shadow)',
+      };
+
   return (
     <div className="flex relative flex-col h-full bg-gray-50 border-t border-gray-200">
       <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
@@ -20,14 +35,9 @@ export default function CodeEditor({ code, onChange, onApply, onOptimize, onClea
           </button>
           <button
             onClick={onOptimize}
-            disabled={isGenerating || isApplyingCode || isOptimizingCode || !code.trim()}
-            className="px-4 py-2 text-sm font-medium text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center gap-2"
-            style={{
-              background:
-                isGenerating || isApplyingCode || isOptimizingCode
-                  ? '#d1d5db'
-                  : 'linear-gradient(135deg, #fb923c 0%, #f97316 40%, #ea580c 100%)',
-            }}
+            disabled={optimizeDisabled}
+            className="px-4 py-2 text-sm font-medium rounded transition-all duration-200 flex items-center gap-2 text-white shadow-sm disabled:cursor-not-allowed"
+            style={optimizeButtonStyle}
             title="优化图标布局和箭头连接"
           >
             {isOptimizingCode ? (

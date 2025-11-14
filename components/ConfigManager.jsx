@@ -353,7 +353,7 @@ export default function ConfigManager({ isOpen, onClose, onConfigSelect }) {
                       </button>
                       <button
                         onClick={() => handleClone(config)}
-                        className="px-3 py-1 text-xs bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors duration-200"
+                        className="px-3 py-1 text-xs text-white rounded bg-[var(--primary-main)] hover:bg-[var(--primary-strong)] transition-colors duration-200 shadow-[0_4px_12px_var(--primary-shadow)]"
                       >
                         克隆
                       </button>

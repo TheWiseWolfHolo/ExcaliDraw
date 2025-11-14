@@ -8,6 +8,17 @@
      这里用 next/font/local 提供的变量，保证走打包后的字体 family 名称 */
   --font-app-sans: var(--font-tiempos), var(--font-pingfang),
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* 品牌橙色体系，保持高级柔和 */
+  --primary-muted: #ffe8d1;
+  --primary-main: #f3a25e;
+  --primary-strong: #ea8342;
+  --primary-deep: #c46226;
+  --primary-focus: rgba(243, 162, 94, 0.45);
+  --primary-shadow: rgba(236, 131, 65, 0.28);
+  --primary-gradient-start: #fff2e3;
+  --primary-gradient-mid: #f8c18e;
+  --primary-gradient-end: #eb8140;
 }
 
 @theme inline {

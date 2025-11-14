@@ -11,11 +11,11 @@ export default function Button({
   className = '',
 }) {
   const baseClasses =
-    'rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed';
+    'rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary-focus)] disabled:opacity-60 disabled:cursor-not-allowed';
 
   const variants = {
     primary:
-      'bg-orange-500 text-white hover:bg-orange-600 active:bg-orange-700 disabled:bg-orange-300',
+      'text-white bg-[var(--primary-main)] shadow-[0_8px_24px_var(--primary-shadow)] hover:bg-[var(--primary-strong)] hover:shadow-[0_10px_30px_var(--primary-shadow)] active:bg-[var(--primary-deep)] disabled:bg-[var(--primary-muted)] disabled:text-white/70 disabled:shadow-none',
     secondary:
       'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300',
     danger: 'bg-red-600 text-white hover:bg-red-700',
