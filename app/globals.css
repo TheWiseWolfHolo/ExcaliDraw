@@ -240,6 +240,90 @@ body {
   color: rgba(118, 88, 60, 0.9);
 }
 
+/* Library sidebar tabs + empty state */
+.excalidraw .sidebar-tabs-root,
+.excalidraw .sidebar-tabs-root * {
+  font-family: var(--font-app-sans) !important;
+}
+
+.excalidraw .sidebar-tab-trigger {
+  border-radius: 12px;
+  background: transparent;
+  color: var(--primary-deep);
+  border: 1px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.excalidraw .sidebar-tab-trigger[data-state='active'] {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 242, 227, 0.95),
+    rgba(243, 162, 94, 0.92)
+  );
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(234, 131, 66, 0.25);
+}
+
+.excalidraw .sidebar-tab-trigger svg {
+  color: currentColor;
+}
+
+.excalidraw .sidebar__close {
+  border-radius: 999px;
+  color: var(--tone-neutral-text);
+}
+
+.excalidraw .library-menu-items__no-items__label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tone-neutral-text);
+}
+
+.excalidraw .library-menu-items__no-items__hint {
+  font-size: 0.85rem;
+  color: rgba(92, 75, 60, 0.8);
+}
+
+.excalidraw .library-menu-browse-button,
+.excalidraw .library-menu-dropdown-container button,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-app-sans);
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(
+    130deg,
+    var(--primary-gradient-start),
+    var(--primary-gradient-end)
+  );
+  color: #fff;
+  box-shadow: 0 10px 26px var(--primary-shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.excalidraw .library-menu-browse-button:hover,
+.excalidraw .library-menu-dropdown-container button:hover,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.excalidraw .library-menu-browse-button:active,
+.excalidraw .library-menu-dropdown-container button:active,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 18px rgba(203, 98, 38, 0.35);
+}
+
+.excalidraw .library-menu-dropdown-container button svg,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button svg {
+  color: currentColor;
+}
+
 /* Font choice specific overrides for inline editors */
 .excalidraw .excalidraw-textEditor textarea,
 .excalidraw .excalidraw-textEditor input {
