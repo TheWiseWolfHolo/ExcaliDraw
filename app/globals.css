@@ -10,16 +10,19 @@
     "PingFang SC", "PingFangSC", var(--font-pingfang),
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* 品牌橙色体系，保持高级柔和 */
-  --primary-muted: #ffe8d1;
-  --primary-main: #f3a25e;
-  --primary-strong: #ea8342;
-  --primary-deep: #c46226;
-  --primary-focus: rgba(243, 162, 94, 0.45);
-  --primary-shadow: rgba(236, 131, 65, 0.28);
-  --primary-gradient-start: #fff2e3;
-  --primary-gradient-mid: #f8c18e;
-  --primary-gradient-end: #eb8140;
+  /* 品牌橙色体系，降低饱和度、更高可读性 */
+  --primary-muted: #f8efe6;
+  --primary-surface: #fbf6f1;
+  --primary-main: #f2c6a4;
+  --primary-strong: #e6a97a;
+  --primary-deep: #b4764c;
+  --primary-contrast: #4a2c1a;
+  --primary-border: #e3c8b2;
+  --primary-focus: rgba(226, 157, 102, 0.35);
+  --primary-shadow: rgba(171, 111, 70, 0.18);
+  --primary-gradient-start: #fdf7f1;
+  --primary-gradient-mid: #f4d7bd;
+  --primary-gradient-end: #e1af86;
 
   /* 温润辅助色系 */
   --tone-chip-bg: #f7ede2;
@@ -106,17 +109,24 @@ body {
   border-radius: 9999px;
   padding: 0.5rem 1.25rem;
   font-weight: 600;
-  transition: background 150ms ease, box-shadow 150ms ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: background 150ms ease, box-shadow 150ms ease, color 150ms ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid transparent;
 }
 
 .tone-button--primary {
-  background: linear-gradient(
-    120deg,
-    var(--primary-gradient-start),
-    var(--primary-gradient-end)
-  );
-  color: white;
+  background: var(--primary-main);
+  border-color: var(--primary-border);
+  color: var(--primary-contrast);
+}
+
+.tone-button--primary:hover:not(:disabled) {
+  background: var(--primary-strong);
+}
+
+.tone-button--primary:active:not(:disabled) {
+  background: var(--primary-deep);
+  color: #fdf5ee;
 }
 
 .tone-button--primary:disabled {
@@ -126,8 +136,9 @@ body {
 }
 
 .tone-button--danger {
-  background: var(--tone-danger-strong);
-  color: white;
+  background: var(--tone-danger-bg);
+  border-color: var(--tone-danger-border);
+  color: var(--tone-danger-text);
 }
 
 .tone-button--ghost {
@@ -153,10 +164,11 @@ body {
 
 .excalidraw button.ToolIcon_type_button {
   border-radius: 12px;
-  border-color: transparent;
-  background: #ffffff;
-  color: #1f2937;
-  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  border: 1px solid transparent;
+  background: var(--primary-surface);
+  color: var(--primary-contrast);
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease,
+    border 0.15s ease;
 }
 
 .excalidraw button.ToolIcon_type_button svg {
@@ -167,105 +179,40 @@ body {
 .excalidraw button[aria-expanded="true"],
 .excalidraw .layer-ui__wrapper button.ToolIcon_type_button:hover,
 .excalidraw .layer-ui__wrapper button.ToolIcon_type_button:focus-visible {
-  background: linear-gradient(
-    125deg,
-    var(--primary-gradient-start),
-    var(--primary-gradient-mid),
-    var(--primary-gradient-end)
-  );
-  color: var(--excalidraw-primary-text);
-  box-shadow: 0 10px 26px var(--primary-shadow);
+  background: var(--primary-main);
+  color: var(--primary-contrast);
+  border-color: var(--primary-border);
+  box-shadow: 0 8px 16px var(--primary-shadow);
 }
 
 .excalidraw button[aria-pressed="true"] svg,
 .excalidraw button[aria-expanded="true"] svg,
 .excalidraw .layer-ui__wrapper button.ToolIcon_type_button:hover svg {
-  color: #ffffff;
+  color: var(--primary-contrast);
 }
 
 .excalidraw .layer-ui__wrapper__library,
-.excalidraw .layer-ui__wrapper__library .Stack,
-.excalidraw .library-menu-title,
-.excalidraw .library-menu-help,
-.excalidraw .library-actions,
-.excalidraw .LibraryMenu__list-item {
-  font-family: var(--font-app-sans);
-  color: var(--primary-deep);
-}
-
-.excalidraw .layer-ui__wrapper__library .ToolIcon_type_button,
-.excalidraw .layer-ui__wrapper__library button,
-.excalidraw .library-actions button,
-.excalidraw .LibraryMenu__list-item button,
-.excalidraw .layer-ui__wrapper__sidebar button[data-testid="library-menu-button"] {
-  border-radius: 10px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 242, 227, 0.95),
-    rgba(243, 162, 94, 0.92)
-  );
-  color: #ffffff;
-  border: none;
-  box-shadow: 0 16px 30px rgba(234, 131, 66, 0.28);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-}
-
-.excalidraw .layer-ui__wrapper__library button:hover,
-.excalidraw .library-actions button:hover,
-.excalidraw .LibraryMenu__list-item button:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(248, 193, 142, 0.95),
-    rgba(235, 129, 64, 0.95)
-  );
-}
-
-.excalidraw .layer-ui__wrapper__library button:disabled,
-.excalidraw .library-actions button:disabled,
-.excalidraw .LibraryMenu__list-item button:disabled {
-  background: var(--primary-muted);
-  color: rgba(181, 130, 90, 0.9);
-  box-shadow: none;
-}
-
-.excalidraw .library-menu-title {
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.excalidraw .library-menu-help {
-  font-size: 0.75rem;
-  color: rgba(118, 88, 60, 0.9);
-}
-
-/* Library sidebar tabs + empty state */
+.excalidraw .layer-ui__wrapper__library *,
 .excalidraw .sidebar-tabs-root,
 .excalidraw .sidebar-tabs-root * {
   font-family: var(--font-app-sans) !important;
+  color: var(--primary-contrast);
 }
 
 .excalidraw .sidebar-tab-trigger {
-  border-radius: 12px;
-  background: transparent;
-  color: var(--primary-deep);
-  border: 1px solid transparent;
+  border-radius: 12px !important;
+  background: transparent !important;
+  color: var(--primary-contrast) !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .excalidraw .sidebar-tab-trigger[data-state='active'] {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 242, 227, 0.95),
-    rgba(243, 162, 94, 0.92)
-  );
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(234, 131, 66, 0.25);
-}
-
-.excalidraw .sidebar-tab-trigger svg {
-  color: currentColor;
+  background: var(--primary-surface) !important;
+  border-color: var(--primary-border) !important;
+  color: var(--primary-contrast) !important;
+  box-shadow: inset 0 0 0 1px var(--primary-border) !important;
 }
 
 .excalidraw .sidebar__close {
@@ -276,52 +223,69 @@ body {
 .excalidraw .library-menu-items__no-items__label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--tone-neutral-text);
+  color: var(--primary-contrast);
 }
 
 .excalidraw .library-menu-items__no-items__hint {
   font-size: 0.85rem;
-  color: rgba(92, 75, 60, 0.8);
+  color: rgba(74, 44, 26, 0.75);
+}
+
+.excalidraw .library-menu-control-buttons,
+.excalidraw .library-menu-items-container__items,
+.excalidraw .library-menu-items__no-items {
+  width: 100%;
 }
 
 .excalidraw .library-menu-browse-button,
+.excalidraw .library-menu-control-buttons button,
 .excalidraw .library-menu-dropdown-container button,
-.excalidraw .library-menu-dropdown-container .dropdown-menu-button {
-  display: inline-flex;
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button,
+.excalidraw .LibraryMenu__list-item button {
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-app-sans);
-  font-weight: 600;
-  padding: 0.65rem 1rem;
-  border-radius: 999px;
-  border: none;
-  background: linear-gradient(
-    130deg,
-    var(--primary-gradient-start),
-    var(--primary-gradient-end)
-  );
-  color: #fff;
-  box-shadow: 0 10px 26px var(--primary-shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  font-family: var(--font-app-sans) !important;
+  font-weight: 600 !important;
+  padding: 0.65rem 1rem !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--primary-border) !important;
+  background: var(--primary-main) !important;
+  color: var(--primary-contrast) !important;
+  box-shadow: none !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .excalidraw .library-menu-browse-button:hover,
+.excalidraw .library-menu-control-buttons button:hover,
 .excalidraw .library-menu-dropdown-container button:hover,
-.excalidraw .library-menu-dropdown-container .dropdown-menu-button:hover {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button:hover,
+.excalidraw .LibraryMenu__list-item button:hover {
+  background: var(--primary-strong) !important;
 }
 
 .excalidraw .library-menu-browse-button:active,
+.excalidraw .library-menu-control-buttons button:active,
 .excalidraw .library-menu-dropdown-container button:active,
-.excalidraw .library-menu-dropdown-container .dropdown-menu-button:active {
-  transform: translateY(0);
-  box-shadow: 0 8px 18px rgba(203, 98, 38, 0.35);
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button:active,
+.excalidraw .LibraryMenu__list-item button:active {
+  background: var(--primary-deep) !important;
+  color: #fdf5ee !important;
+}
+
+.excalidraw .library-menu-browse-button:disabled,
+.excalidraw .library-menu-control-buttons button:disabled,
+.excalidraw .library-menu-dropdown-container button:disabled,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button:disabled,
+.excalidraw .LibraryMenu__list-item button:disabled {
+  background: var(--primary-muted) !important;
+  color: rgba(74, 44, 26, 0.5) !important;
+  border-color: var(--primary-border) !important;
 }
 
 .excalidraw .library-menu-dropdown-container button svg,
 .excalidraw .library-menu-dropdown-container .dropdown-menu-button svg {
-  color: currentColor;
+  color: currentColor !important;
 }
 
 /* Font choice specific overrides for inline editors */

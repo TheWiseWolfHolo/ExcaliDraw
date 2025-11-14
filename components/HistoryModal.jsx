@@ -128,7 +128,11 @@ export default function HistoryModal({ isOpen, onClose, onApply }) {
                       <button
                         onClick={() => handleApply(history)}
                         className="tone-button tone-button--primary px-4 py-1 text-xs"
-                        style={{ background: 'var(--primary-main)', color: '#fff' }}
+                        style={{
+                          background: 'var(--primary-main)',
+                          color: 'var(--primary-contrast)',
+                          border: '1px solid var(--primary-border)',
+                        }}
                       >
                         应用
                       </button>

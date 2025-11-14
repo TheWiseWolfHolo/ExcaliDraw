@@ -5,18 +5,12 @@ import { Editor } from '@monaco-editor/react';
 export default function CodeEditor({ code, onChange, onApply, onOptimize, onClear, jsonError, onClearJsonError, isGenerating, isApplyingCode, isOptimizingCode }) {
   const hasCode = Boolean(code?.trim());
   const optimizeDisabled = isGenerating || isApplyingCode || isOptimizingCode || !hasCode;
-  const optimizeButtonStyle = optimizeDisabled
-    ? {
-        background: 'var(--primary-muted)',
-        color: '#8f5525',
-        boxShadow: 'none',
-      }
-    : {
-        background:
-          'linear-gradient(135deg, #f9b47b 0%, #f28f3b 45%, #d3681f 100%)',
-        color: '#fff',
-        boxShadow: '0 14px 28px var(--primary-shadow)',
-      };
+  const optimizeButtonStyle = {
+    background: optimizeDisabled ? 'var(--primary-muted)' : 'var(--primary-main)',
+    color: optimizeDisabled ? 'rgba(74, 44, 26, 0.55)' : 'var(--primary-contrast)',
+    border: '1px solid var(--primary-border)',
+    boxShadow: 'none',
+  };
 
   return (
     <div className="flex relative flex-col h-full bg-gray-50 border-t border-gray-200">
@@ -36,20 +30,20 @@ export default function CodeEditor({ code, onChange, onApply, onOptimize, onClea
           <button
             onClick={onOptimize}
             disabled={optimizeDisabled}
-            className="px-4 py-2 text-sm font-medium rounded transition-all duration-200 flex items-center gap-2 text-white shadow-sm disabled:cursor-not-allowed"
+            className="px-4 py-2 text-sm font-medium rounded transition-all duration-200 flex items-center gap-2 disabled:cursor-not-allowed"
             style={optimizeButtonStyle}
             title="优化图标布局和箭头连接"
           >
             {isOptimizingCode ? (
               <>
-                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
                 <span>优化中...</span>
               </>
             ) : (
               <>
                 <span>优化</span>
                 {isGenerating && (
-                  <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></div>
                 )}
               </>
             )}

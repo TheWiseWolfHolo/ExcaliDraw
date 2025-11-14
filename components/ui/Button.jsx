@@ -15,11 +15,11 @@ export default function Button({
 
   const variants = {
     primary:
-      'text-white bg-[var(--primary-main)] shadow-[0_8px_24px_var(--primary-shadow)] hover:bg-[var(--primary-strong)] hover:shadow-[0_10px_30px_var(--primary-shadow)] active:bg-[var(--primary-deep)] disabled:bg-[var(--primary-muted)] disabled:text-white/70 disabled:shadow-none',
+      'text-[var(--primary-contrast)] bg-[var(--primary-main)] border border-[var(--primary-border)] shadow-none hover:bg-[var(--primary-strong)] active:bg-[var(--primary-deep)] active:text-white disabled:bg-[var(--primary-muted)] disabled:text-[color:rgba(74,44,26,0.55)]',
     secondary:
       'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300',
     danger:
-      'text-white bg-[var(--tone-danger-strong)] hover:bg-[color-mix(in srgb,var(--tone-danger-strong),black 10%)]',
+      'text-[var(--tone-danger-text)] bg-[var(--tone-danger-bg)] border border-[var(--tone-danger-border)] hover:bg-[color-mix(in srgb,var(--tone-danger-bg),var(--tone-danger-border) 35%)]',
   };
 
   const sizes = {
