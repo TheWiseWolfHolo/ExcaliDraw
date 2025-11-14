@@ -79,7 +79,8 @@ export const metadata = {
   title: "Excalidraw",
   description: "AI 驱动的图表生成",
   icons: {
-    icon: "/icon.jpg",
+    icon: "/icon.ico",
+    shortcut: "/icon.ico",
   },
 };
 

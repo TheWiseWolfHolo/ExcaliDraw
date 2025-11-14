@@ -220,15 +220,24 @@ body {
   color: var(--tone-neutral-text);
 }
 
+.excalidraw .library-menu-items__no-items {
+  background: var(--primary-surface) !important;
+  border: 1px dashed var(--primary-border) !important;
+  border-radius: 16px !important;
+  padding: 1.25rem !important;
+  color: var(--primary-contrast) !important;
+  gap: 0.35rem !important;
+}
+
 .excalidraw .library-menu-items__no-items__label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--primary-contrast);
+  color: var(--primary-contrast) !important;
 }
 
 .excalidraw .library-menu-items__no-items__hint {
   font-size: 0.85rem;
-  color: rgba(74, 44, 26, 0.75);
+  color: rgba(74, 44, 26, 0.7) !important;
 }
 
 .excalidraw .library-menu-control-buttons,
@@ -286,6 +295,11 @@ body {
 .excalidraw .library-menu-dropdown-container button svg,
 .excalidraw .library-menu-dropdown-container .dropdown-menu-button svg {
   color: currentColor !important;
+}
+
+.excalidraw .library-menu-dropdown-container,
+.excalidraw .library-menu-dropdown-container .dropdown-menu-button {
+  display: none !important;
 }
 
 /* Font choice specific overrides for inline editors */
