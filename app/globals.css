@@ -115,24 +115,7 @@ body {
 }
 
 /* Font choice specific overrides for inline editors */
-.excalidraw[data-font-choice="tiempos"] .excalidraw-textEditor textarea,
-.excalidraw[data-font-choice="tiempos"] .excalidraw-textEditor input,
-.excalidraw[data-font-choice="sans"] .excalidraw-textEditor textarea,
-.excalidraw[data-font-choice="sans"] .excalidraw-textEditor input {
-  font-family: "Tiempos Text", var(--font-tiempos), "PingFang SC", var(--font-pingfang), sans-serif;
-}
-
-.excalidraw[data-font-choice="pingfang"] .excalidraw-textEditor textarea,
-.excalidraw[data-font-choice="pingfang"] .excalidraw-textEditor input {
-  font-family: var(--font-pingfang), "PingFang SC", var(--font-tiempos), sans-serif;
-}
-
-.excalidraw[data-font-choice="virgil"] .excalidraw-textEditor textarea,
-.excalidraw[data-font-choice="virgil"] .excalidraw-textEditor input {
-  font-family: 'Virgil', 'Comic Sans MS', cursive;
-}
-
-.excalidraw[data-font-choice="mono"] .excalidraw-textEditor textarea,
-.excalidraw[data-font-choice="mono"] .excalidraw-textEditor input {
-  font-family: 'Cascadia Code', 'SFMono-Regular', Menlo, monospace;
+.excalidraw .excalidraw-textEditor textarea,
+.excalidraw .excalidraw-textEditor input {
+  font-family: var(--font-app-sans);
 }
